@@ -25,6 +25,11 @@ export class Player {
 	public ammo: number[] = [];
 	public lifeState: LifeState = LifeState.DEATH;
 	public activeWeapon: number = 0;
+	public m_nPlayerCond: number;
+	public m_nPlayerCondEx: number;
+	public m_nPlayerCondEx2: number;
+	public m_nPlayerCondEx3: number;
+	public _condition_bits: number;
 
 	constructor(match: Match, userInfo: UserInfo) {
 		this.match = match;
@@ -36,5 +41,36 @@ export class Player {
 			.map((id) => this.match.outerMap.get(id) as EntityId)
 			.filter((entityId) => entityId > 0)
 			.map((entityId) => this.match.weaponMap.get(entityId) as Weapon);
+	}
+
+	public hasCondition(cond: number): boolean {
+		if (cond >= 92) {
+			if (this.m_nPlayerCondEx3 & 1 << cond) {
+				return true;
+			}
+		}
+
+		if (cond >= 64) {
+			if (this.m_nPlayerCondEx2 & 1 << cond) {
+				return true;
+			}
+		}
+
+		if (cond >= 32) {
+			if (this.m_nPlayerCondEx & 1 << cond) {
+				return true;
+			}
+		}
+
+		if (cond < 32) {
+			if (this.m_nPlayerCond & 1 << cond) {
+				return true;
+			}
+			if (this._condition_bits & 1 << cond) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 }

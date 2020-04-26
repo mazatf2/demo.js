@@ -100,6 +100,22 @@ export function handleTFEntity(entity: PacketEntity, match: Match, message: Pack
 								player.activeWeapon = i;
 							}
 						}
+						break;
+					case 'DT_TFPlayerShared.m_nPlayerCond':
+						player.m_nPlayerCond = prop.value as number;
+						break;
+					case 'DT_TFPlayerShared.m_nPlayerCondEx':
+						player.m_nPlayerCondEx = prop.value as number;
+						break;
+					case 'DT_TFPlayerShared.m_nPlayerCondEx2':
+						player.m_nPlayerCondEx2 = prop.value as number;
+						break;
+					case 'DT_TFPlayerShared.m_nPlayerCondEx3':
+						player.m_nPlayerCondEx3 = prop.value as number;
+						break;
+					case 'DT_TFPlayerConditionListExclusive._condition_bits':
+						player._condition_bits = prop.value as number;
+						break;
 				}
 			}
 			break;
