@@ -43,30 +43,30 @@ export class Player {
 			.map((entityId) => this.match.weaponMap.get(entityId) as Weapon);
 	}
 
-	public hasCondition(cond: number): boolean {
-		if (cond >= 92) {
-			if (this.m_nPlayerCondEx3 & 1 << cond) {
+	public hasCondition(cond: PlayerCondition): boolean {
+		if (cond >= 1 << 92) {
+			if (this.m_nPlayerCondEx3 & cond) {
 				return true;
 			}
 		}
 
-		if (cond >= 64) {
-			if (this.m_nPlayerCondEx2 & 1 << cond) {
+		if (cond >= 1 << 64) {
+			if (this.m_nPlayerCondEx2 & cond) {
 				return true;
 			}
 		}
 
-		if (cond >= 32) {
-			if (this.m_nPlayerCondEx & 1 << cond) {
+		if (cond >= 1 << 32) {
+			if (this.m_nPlayerCondEx & cond) {
 				return true;
 			}
 		}
 
-		if (cond < 32) {
-			if (this.m_nPlayerCond & 1 << cond) {
+		if (cond < 1 << 32) {
+			if (this.m_nPlayerCond & cond) {
 				return true;
 			}
-			if (this._condition_bits & 1 << cond) {
+			if (this._condition_bits & cond) {
 				return true;
 			}
 		}
