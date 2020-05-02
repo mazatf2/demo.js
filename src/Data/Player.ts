@@ -44,33 +44,29 @@ export class Player {
 	}
 
 	public hasCondition(cond: PlayerCondition): boolean {
-		if (cond >= 1 << 92) {
-			if (this.m_nPlayerCondEx3 & cond) {
+		if (cond < 32) {
+			if (this.m_nPlayerCond & 1 << cond) {
+				return true;
+			}
+			if (this._condition_bits & 1 << cond) {
 				return true;
 			}
 		}
-
-		if (cond >= 1 << 64) {
-			if (this.m_nPlayerCondEx2 & cond) {
+		if (cond < 64) {
+			if (this.m_nPlayerCondEx & 1 << (cond - 32)) {
 				return true;
 			}
 		}
-
-		if (cond >= 1 << 32) {
-			if (this.m_nPlayerCondEx & cond) {
+		if (cond < 96) {
+			if (this.m_nPlayerCondEx2 & 1 << (cond - 64)) {
 				return true;
 			}
 		}
-
-		if (cond < 1 << 32) {
-			if (this.m_nPlayerCond & cond) {
-				return true;
-			}
-			if (this._condition_bits & cond) {
+		if (cond < 128) {
+			if (this.m_nPlayerCondEx3 & 1 << (cond - 96)) {
 				return true;
 			}
 		}
-
 		return false;
 	}
 }
